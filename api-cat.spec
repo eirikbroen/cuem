@@ -148,7 +148,7 @@ paths:
         '200':
           description: OK
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/SomeApi'
         '400':
@@ -158,7 +158,7 @@ paths:
         '406':
           description: Missing Accept header
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/NotAcceptableError'
     put:
@@ -183,7 +183,7 @@ paths:
         '406':
           description: Missing Accept header
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/NotAcceptableError'
       requestBody:
@@ -205,7 +205,7 @@ paths:
         '406':
           description: Missing Accept header
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/NotAcceptableError'
   '/apis/{id}/spec':
@@ -245,7 +245,7 @@ paths:
           '200':
             description: OK
             content:
-              '*/*':
+              'application/json':
                 schema:
                   type: array
                   items:
@@ -274,7 +274,7 @@ paths:
           '200':
             description: OK
             content:
-              '*/*':
+              'application/json':
                 schema:
                   type: array
                   items:
@@ -322,7 +322,7 @@ paths:
           '400':
             description: Invalid email address
             content:
-              '*/*':
+              'application/json':
                 schema:
                   $ref: '#/components/schemas/BadRequestError'
           '401':
@@ -361,7 +361,7 @@ paths:
           '200':
             description: OK
             content:
-              '*/*':
+              'application/json':
                 schema:
                   type: array
                   items:
@@ -402,19 +402,19 @@ paths:
         '200':
           description: Summary extracted from url
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/apiSpecSummary'
         '400':
           description: Invalid specification url
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/InvalidSpecificationError'
         '406':
           description: Missing Accept header
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/NotAcceptableError'
   '/specification/upload':
@@ -434,13 +434,13 @@ paths:
         '400':
           description: Invalid api specification
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/InvalidSpecificationError'
         '406':
           description: Missing Accept header
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: '#/components/schemas/NotAcceptableError'
       requestBody:
@@ -775,8 +775,6 @@ components:
       type: object
       required:
         - id
-        - key
-        - email
       properties:
         id:
           type: string
@@ -792,6 +790,15 @@ components:
           description: |
             Time and date of when the API was created. See OpenAPI specification for exact format standard.
           example: 2017-07-21T17:32:28Z
+        apiId:
+          type: integer
+          format: int64
+          description: A unique ID of the API
+          example: 63
+        apiName:
+          type: string
+          description: The name of the api
+          example: Petstore
     AccessProtocol:
       type: string
       enum:
@@ -1079,4 +1086,3 @@ components:
           type: string
           example: >-
             https://github.oslo.kommune.no/origodigi/api-catalog-backend/blob/master/errorCodes.md#APIC1009
-
