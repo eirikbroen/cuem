@@ -1,6 +1,8 @@
 # Developer portal
 Front end for showing the api catalog, data sources and other development resources.
 
+[logo]: https://raw.githubusercontent.com/eirikbroen/cuem/master/micro.png "Logo Title Text 2"
+
 ## How to install and run
 Make sure you have node 11.8.0. Tip: Install nvm.
 ```
