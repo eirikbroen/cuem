@@ -3,6 +3,14 @@ Front end for showing the api catalog, data sources and other development resour
 
 ![Logo example](https://raw.githubusercontent.com/eirikbroen/cuem/master/micro.png)
 
+<p>
+      <a href="#how-to-install-and-run">Installation</a><br>
+      <a href="#how-to-test">Test</a><br>
+      <a href="#quickstart">Quickstart</a><br>
+      <a href="#environment">Environment</a>
+      <a href="#project-setup">Setup</a>
+    </p>
+
 ## How to install and run
 Make sure you have node 11.8.0. Tip: Install nvm.
 ```
@@ -30,56 +38,45 @@ make test-debug
 make test-watch 
 ```
 
-## How to build docker image
+## Quickstart
+Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.
 
-```
-make build-docker
-```
-... or with source maps sent to sentry:
-```
-make build-docker-with-sourcemaps
-```
-## How to deploy:
-Our application is running on the itas Kubernetes platform.
-> Requirements:
-- helm
-- docker
-- python/[pip](https://pip.pypa.io/en/stable/installing/)
-- You are logged in to k8s ([k8s-scripts](https://github.oslo.kommune.no/plattform/k8s-scripts))
-- You are logged in to our docker hub: `docker login container-registry.oslo.kommune.no`. Credentials in kryptert dokumentasjon
-### Test
-Make sure current context is test, and then deploy with:
-```
-make deploy-test
-```
-> This target will:
-- build docker image with tag=test
-- push docker image
-- deploy helm chart
+```javascript
+	function TasksViewModel() {
+        var self = this;
+        self.tasks = ko.observableArray();
 
-### Prod
-Make sure current context is prod, and then deploy with:
+        self.tasks([
+            {
+                title: ko.observable('title #1'),
+                description: ko.observable('description #1'),
+                done: ko.observable(false)
+            },
+            {
+                title: ko.observable('title #2'),
+                description: ko.observable('description #2'),
+                done: ko.observable(true)
+            }
+        ]);
+
+        self.beginAdd = function() {
+            alert("Add");
+        }
+        self.beginEdit = function(task) {
+            alert("Edit: " + task.title());
+        }
+        self.remove = function(task) {
+            alert("Remove: " + task.title());
+        }
+        self.markInProgress = function(task) {
+            task.done(false);
+        }
+        self.markDone = function(task) {
+            task.done(true);
+        }
+    }
+    ko.applyBindings(new TasksViewModel(), $('#main')[0]);
 ```
-make deploy-prod
-```
-> This target will:
-- Bump the chart version
-- build docker image with updated version tag
-- push docker image
-- deploy helm chart
-
-:exclamation: Remember to commit and push the updated chart version!
-
-## Note about running npm install
-
-The folder `node_modules_custom` contains some code that needs to be copied into the appropriate directory
-in `node_modules`. This is because our Nuxt front end is waiting for `auth-module`'s pull requests
-[#188](https://github.com/nuxt-community/auth-module/pull/190) and
-[#190](https://github.com/nuxt-community/auth-module/pull/188) to be merged.
-
-So after each time `npm install` is run, you need to copy `node_modules_custom/@nuxtjs/auth` into
-`node_modules/@nuxtjs`. See `make init` in [makefile](makefile) for the exact commands.
-
 ## Note about environment variables and node_modules_custom
 We want to be able to build one image and deploy it various environments, using environment variables
 to control which resources (URLs, etc) that are used at runtime. The way of referring to environment variables in Nuxt,
